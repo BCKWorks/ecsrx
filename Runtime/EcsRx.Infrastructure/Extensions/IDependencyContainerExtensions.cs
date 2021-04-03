@@ -146,7 +146,7 @@ namespace EcsRx.Infrastructure.Extensions
                     if (!systemType.IsAssignableFrom(x))
                     { return false; }
 
-                    return namespaces.Any(namespaceToVerify => x.Namespace.Contains(namespaceToVerify));
+                    return namespaces.Any(namespaceToVerify => x.Namespace == namespaceToVerify);
                 })
                 .ToList();
 
@@ -155,7 +155,7 @@ namespace EcsRx.Infrastructure.Extensions
                 var bindingConfiguration = new BindingConfiguration
                 {
                     AsSingleton = true,
-                    WithName = applicableSystemType.Name
+                    WithName = applicableSystemType.FullName
                 };
 
                 container.Bind(typeof(ISystem), applicableSystemType, bindingConfiguration);
@@ -179,7 +179,7 @@ namespace EcsRx.Infrastructure.Extensions
                     if (!systemType.IsAssignableFrom(x))
                     { return false; }
 
-                    return namespaces.Any(namespaceToVerify => x.Namespace.Contains(namespaceToVerify));
+                    return namespaces.Any(namespaceToVerify => x.Namespace == namespaceToVerify);
                 })
                 .ToList();
 
@@ -207,13 +207,13 @@ namespace EcsRx.Infrastructure.Extensions
                     if (!systemType.IsAssignableFrom(x))
                     { return false; }
 
-                    return namespaces.Any(namespaceToVerify => x.Namespace.Contains(namespaceToVerify));
+                    return namespaces.Any(namespaceToVerify => x.Namespace == namespaceToVerify);
                 })
                 .ToList();
 
             foreach (var applicableSystemType in applicableSystems)
             {
-                systems.Add(container.Resolve(typeof(ISystem), applicableSystemType.Name) as ISystem);
+                systems.Add(container.Resolve(typeof(ISystem), applicableSystemType.FullName) as ISystem);
             }
 
             return systems;
