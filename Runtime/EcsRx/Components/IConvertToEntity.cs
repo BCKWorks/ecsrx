@@ -14,6 +14,6 @@ namespace EcsRx.Components
 
     public interface IConvertToEntity
     {
-        void Convert(IEntity entity);
+        bool Convert(IEntity entity);
     }
 }
